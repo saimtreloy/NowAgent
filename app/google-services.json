@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "772837154231",
+    "firebase_url": "https://saim-personal-project.firebaseio.com",
+    "project_id": "saim-personal-project",
+    "storage_bucket": "saim-personal-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:772837154231:android:160aaa396615406e",
+        "android_client_info": {
+          "package_name": "saim.com.nowagent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "772837154231-a74en03b5t8eq28vue0lbsgp5qkmh703.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "saim.com.nowagent",
+            "certificate_hash": "3bdcbda5d167acfb4a323197589dcad202867f8c"
+          }
+        },
+        {
+          "client_id": "772837154231-4nfl6tmj77n49u026sh572oju9u3feqb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIA8s5Aw96dIOmtlz8STk77xK-2ggMB3I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "772837154231-4nfl6tmj77n49u026sh572oju9u3feqb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
