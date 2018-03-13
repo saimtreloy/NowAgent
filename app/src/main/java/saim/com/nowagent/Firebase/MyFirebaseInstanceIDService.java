@@ -5,6 +5,8 @@ import android.util.Log;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
+import saim.com.nowagent.Utilities.SharedPrefDatabase;
+
 /**
  * Created by NREL on 3/8/18.
  */
@@ -27,6 +29,6 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     }
 
     private void storeToken(String token) {
-        //we will save the token in sharedpreferences later
+        new SharedPrefDatabase(getApplicationContext()).StoreVendorToken(token);
     }
 }
