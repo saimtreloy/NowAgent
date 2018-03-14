@@ -29,7 +29,8 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".OrderList"></activity>
+        <activity android:name=".OrderList" />
+        <activity android:name=".OrderDetail"></activity>
     </application>
 
 </manifest>
