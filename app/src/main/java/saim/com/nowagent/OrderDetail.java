@@ -1,21 +1,42 @@
 package saim.com.nowagent;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import saim.com.nowagent.Utilities.ApiURL;
+import saim.com.nowagent.Utilities.MySingleton;
 
 public class OrderDetail extends AppCompatActivity {
     public static Toolbar toolbar;
     ProgressBar progressBar;
+    ProgressDialog progressDialog;
 
     TextView txtOrderDetail, txtOrderName, txtOrderPhone, txtOrderLocation, txtOrderTime, txtOrderStatus;
     Button btnProcessOrder;
@@ -38,6 +59,7 @@ public class OrderDetail extends AppCompatActivity {
         getSupportActionBar().setTitle("Order Detail");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        progressDialog = new ProgressDialog(this);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         txtOrderDetail = (TextView) findViewById(R.id.txtOrderDetail);
@@ -68,7 +90,7 @@ public class OrderDetail extends AppCompatActivity {
         order_bill_number = getIntent().getExtras().getString("order_bill_number");
 
         PopulateView();
-        Log.d("SAIM SAIM", "http://www.globalearnmoney.com/now_api/" + order_detail);
+        Log.d("SAIM SAIM", order_detail);
     }
 
 
@@ -77,7 +99,7 @@ public class OrderDetail extends AppCompatActivity {
             txtOrderDetail.setVisibility(View.GONE);
             imgOrderView.setVisibility(View.VISIBLE);
             Picasso.with(getApplicationContext())
-                    .load("http://www.globalearnmoney.com/now_api/" + order_detail)
+                    .load(order_detail)
                     .placeholder(android.R.drawable.gallery_thumb)
                     .error(android.R.drawable.gallery_thumb)
                     .into(imgOrderView);
@@ -92,6 +114,19 @@ public class OrderDetail extends AppCompatActivity {
         txtOrderTime.setText("Time : " +order_time);
         txtOrderStatus.setText("Status : " +order_status);
 
+        if (order_status.equals("Proccessing") || order_status.equals("Success") || order_status.equals("Cancel")) {
+            btnProcessOrder.setVisibility(View.GONE);
+        } else {
+            btnProcessOrder.setVisibility(View.VISIBLE);
+        }
+
+        btnProcessOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPlaceOrderDialog(id);
+            }
+        });
+
     }
 
 
@@ -103,5 +138,83 @@ public class OrderDetail extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+    public void showPlaceOrderDialog(final String id) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.dialog_shop_placeorder, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText txtDPrice = (EditText) dialogView.findViewById(R.id.txtDPrice);
+        final EditText txtDCharge = (EditText) dialogView.findViewById(R.id.txtDCharge);
+        final EditText txtDBillNo = (EditText) dialogView.findViewById(R.id.txtDBillNo);
+        final EditText txtDMessage = (EditText) dialogView.findViewById(R.id.txtDMessage);
+
+        dialogBuilder.setTitle("Place your order");
+        dialogBuilder.setMessage("Please provide your information");
+        dialogBuilder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+            PlaceOrderFinal(id, txtDPrice.getText().toString(), txtDCharge.getText().toString(), txtDBillNo.getText().toString(), txtDMessage.getText().toString());
+            }
+        });
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog b = dialogBuilder.create();
+        b.setCanceledOnTouchOutside(false);
+        b.show();
+    }
+
+
+    public void PlaceOrderFinal(final String id, final String order_total_price, final String order_service_chrge, final String order_bill_number, final String order_vendor_message){
+
+        progressDialog.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiURL.OrderUpdate,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            JSONArray jsonArray = new JSONArray(response);
+                            JSONObject jsonObject = jsonArray.getJSONObject(0);
+                            String code = jsonObject.getString("code");
+                            if (code.equals("success")){
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                                finish();
+                                progressDialog.dismiss();
+                            }else {
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                            }
+                        }catch (Exception e){
+                            Log.d("HDHD 1", e.toString() + "\n" + response);
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("id", id);
+                params.put("order_total_price", order_total_price);
+                params.put("order_service_chrge", order_service_chrge);
+                params.put("order_bill_number", order_bill_number);
+                params.put("order_vendor_message", order_vendor_message);
+
+                return params;
+            }
+        };
+        stringRequest.setShouldCache(false);
+        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
     }
 }

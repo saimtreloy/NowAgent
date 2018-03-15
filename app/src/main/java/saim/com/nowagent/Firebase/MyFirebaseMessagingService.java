@@ -12,7 +12,7 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import saim.com.nowagent.MainActivity;
+import saim.com.nowagent.OrderList;
 
 /**
  * Created by NREL on 3/8/18.
@@ -32,19 +32,19 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
             Log.d("SAIM NITIFICATION", remoteMessage.getData().get("message"));
-            sendNotification("Hello", remoteMessage.getData().get("message"));
+            sendNotification("New Order", remoteMessage.getData().get("message"));
         }
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-            sendNotification("Hello", remoteMessage.getNotification().getBody());
-            sendNotification("Hello", remoteMessage.getNotification().getBody());
+            sendNotification("New Order", remoteMessage.getNotification().getBody());
+            sendNotification("New Order", remoteMessage.getNotification().getBody());
         }
 
     }
     private void sendNotification(String title, String message) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, OrderList.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="26dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Total Price : "
+            android:textAlignment="textEnd"
+            android:textSize="12sp"/>
+
+        <EditText
+            android:id="@+id/txtDPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="e.g 999TK"
+            android:inputType="numberDecimal"
+            android:singleLine="true"
+            android:textSize="12sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Service Charge : "
+            android:textAlignment="textEnd"
+            android:textSize="12sp"/>
+
+        <EditText
+            android:id="@+id/txtDCharge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="e.g 49TK"
+            android:inputType="numberDecimal"
+            android:singleLine="true"
+            android:textSize="12sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Bill Number : "
+            android:textAlignment="textEnd"
+            android:textSize="12sp"/>
+
+        <EditText
+            android:id="@+id/txtDBillNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="e.g 10008008123232"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textSize="12sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Message : "
+            android:textAlignment="textEnd"
+            android:textSize="12sp"/>
+
+        <EditText
+            android:id="@+id/txtDMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="e.g Thanks for order."
+            android:inputType="text"
+            android:singleLine="true"
+            android:textSize="12sp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
