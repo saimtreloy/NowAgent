@@ -44,6 +44,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        layoutItemList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ItemList.class));
+            }
+        });
+
     }
 
 
@@ -113,4 +120,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+
+
 }

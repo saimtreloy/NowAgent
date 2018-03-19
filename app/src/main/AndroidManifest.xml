@@ -30,7 +30,16 @@
         </service>
 
         <activity android:name=".OrderList" />
-        <activity android:name=".OrderDetail"></activity>
+        <activity android:name=".OrderDetail" />
+        <activity android:name=".ItemList">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

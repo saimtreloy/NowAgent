@@ -11,5 +11,6 @@ public class ApiURL {
     public static String Login = link_header + "login.php";                 //user_email, user_pass
     public static String OrderList = link_header + "order_list.php";                 //user_email, user_pass
     public static String OrderUpdate = link_header + "order_update.php";                 //user_email, user_pass
+    public static String ItemList = link_header + "item_list.php";                 //user_email, user_pass
 
 }
