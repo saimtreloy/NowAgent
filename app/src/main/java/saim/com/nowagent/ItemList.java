@@ -59,7 +59,7 @@ public class ItemList extends AppCompatActivity {
     public void init(){
         toolbar = (Toolbar) findViewById(R.id.toolbarHome);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Order List");
+        getSupportActionBar().setTitle("Item List");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);

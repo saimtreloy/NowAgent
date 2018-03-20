@@ -32,14 +32,18 @@
         <activity android:name=".OrderList" />
         <activity android:name=".OrderDetail" />
         <activity android:name=".ItemList">
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
-
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
         </activity>
+        <activity android:name=".AddItem"></activity>
     </application>
 
 </manifest>
