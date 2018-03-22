@@ -2,6 +2,7 @@ package saim.com.nowagent;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -167,6 +168,10 @@ public class ItemList extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                return true;
+            case R.id.btnOptionAddItem:
+                startActivity(new Intent(getApplicationContext(), AddItem.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
