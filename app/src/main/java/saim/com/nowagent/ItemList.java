@@ -71,6 +71,7 @@ public class ItemList extends AppCompatActivity {
         recyclerViewItemList.setHasFixedSize(true);
 
         ItemList(new SharedPrefDatabase(getApplicationContext()).RetriveVendorID());
+        
 
     }
 
