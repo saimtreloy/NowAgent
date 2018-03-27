@@ -1,6 +1,7 @@
 package saim.com.nowagent.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import saim.com.nowagent.ItemDetail;
 import saim.com.nowagent.Model.ModelItem;
 import saim.com.nowagent.R;
 
@@ -85,7 +87,9 @@ public class AdapterShopItemList extends RecyclerView.Adapter<AdapterShopItemLis
 
         @Override
         public void onClick(View v) {
-
+            Intent intent = new Intent(v.getContext(), ItemDetail.class);
+            intent.putExtra("ITEM_ID", adapterList.get(getAdapterPosition()).getItem_id());
+            v.getContext().startActivity(intent);
         }
     }
 }

@@ -15,5 +15,6 @@ public class ApiURL {
     public static String Logout = link_header + "logout.php";                 //service_shop_vendor_id
     public static String Category_List = link_header + "category_list.php";                 //service_shop_vendor_id addItem.php
     public static String AddItem = link_header + "addItem.php";                 //service_shop_vendor_id addItem.php
+    public static String GetItem = link_header + "item_detail.php";                 //service_shop_vendor_id addItem.php
 
 }

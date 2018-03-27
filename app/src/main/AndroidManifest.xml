@@ -47,12 +47,11 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".AddItem"></activity>
-
-
+        <activity android:name=".AddItem" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
+        <activity android:name=".ItemDetail"></activity>
     </application>
 
 </manifest>
