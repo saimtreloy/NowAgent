@@ -88,6 +88,8 @@ public class Login extends AppCompatActivity {
 
 
     public void UserLogin(final String vendor_username, final String vendor_password, final String vendor_token){
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiURL.Login,
                 new Response.Listener<String>() {
@@ -109,11 +111,12 @@ public class Login extends AppCompatActivity {
                                 String service_shop_vendor_icon = jsonObjectUser.getString("service_shop_vendor_icon");
                                 String service_shop_vendor_location = jsonObjectUser.getString("service_shop_vendor_location");
                                 String service_shop_vendor_mobile = jsonObjectUser.getString("service_shop_vendor_mobile");
+                                String vendor_search_tag = jsonObjectUser.getString("vendor_search_tag");
                                 String vendor_username = jsonObjectUser.getString("vendor_username");
                                 String vendor_password = jsonObjectUser.getString("vendor_password");
                                 String vendor_token = jsonObjectUser.getString("vendor_token");
 
-                                StoreUserData(service_shop_vendor_id, service_shop_vendor_name, service_shop_vendor_icon, service_shop_vendor_location, service_shop_vendor_mobile, vendor_username, vendor_password, vendor_token);
+                                StoreUserData(service_shop_vendor_id, service_shop_vendor_name, service_shop_vendor_icon, service_shop_vendor_location, service_shop_vendor_mobile, vendor_search_tag, vendor_username, vendor_password, vendor_token);
 
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                 finish();
@@ -147,7 +150,7 @@ public class Login extends AppCompatActivity {
 
 
     public void StoreUserData(String VENDOR_ID, String VENDOR_NAME, String VENDOR_ICON,
-                              String VENDOR_LOCATION, String VENDOR_MOBILE,
+                              String VENDOR_LOCATION, String VENDOR_MOBILE, String VENDOR_LOCATION_TAG,
                               String VENDOR_USERNAME, String VENDOR_PASSWORD, String VENDOR_TOKEN){
 
         new SharedPrefDatabase(getApplicationContext()).StoreVendorID(VENDOR_ID);
@@ -155,6 +158,7 @@ public class Login extends AppCompatActivity {
         new SharedPrefDatabase(getApplicationContext()).StoreVendroIcon(VENDOR_ICON);
         new SharedPrefDatabase(getApplicationContext()).StoreVendorLocation(VENDOR_LOCATION);
         new SharedPrefDatabase(getApplicationContext()).StoreVendorMobile(VENDOR_MOBILE);
+        new SharedPrefDatabase(getApplicationContext()).StoreVendorLocationTag(VENDOR_LOCATION_TAG);
         new SharedPrefDatabase(getApplicationContext()).StoreVendorUsername(VENDOR_USERNAME);
         new SharedPrefDatabase(getApplicationContext()).StoreVendorPassword(VENDOR_PASSWORD);
         new SharedPrefDatabase(getApplicationContext()).StoreVendorToken(VENDOR_TOKEN);

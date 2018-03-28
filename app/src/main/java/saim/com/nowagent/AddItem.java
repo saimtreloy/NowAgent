@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,13 +21,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -58,7 +59,7 @@ public class AddItem extends AppCompatActivity {
     ImageView imgItem;
     Bitmap bitmap = null;
     Spinner spinnerLocation;
-    EditText input_p_name, input_p_detail, input_p_price, input_p_price_d, input_p_quantity;
+    TextInputEditText input_p_name, input_p_detail, input_p_price, input_p_price_d, input_p_quantity;
     CheckBox checkOffer, checkPopular, checkCollection;
     Button btnAddItem;
 
@@ -85,11 +86,11 @@ public class AddItem extends AppCompatActivity {
 
         imgItem = (ImageView) findViewById(R.id.imgItem);
         spinnerLocation = (Spinner) findViewById(R.id.spinnerLocation);
-        input_p_name = (EditText) findViewById(R.id.input_p_name);
-        input_p_detail = (EditText) findViewById(R.id.input_p_detail);
-        input_p_price = (EditText) findViewById(R.id.input_p_price);
-        input_p_price_d = (EditText) findViewById(R.id.input_p_price_d);
-        input_p_quantity = (EditText) findViewById(R.id.input_p_quantity);
+        input_p_name = (TextInputEditText) findViewById(R.id.input_p_name);
+        input_p_detail = (TextInputEditText) findViewById(R.id.input_p_detail);
+        input_p_price = (TextInputEditText) findViewById(R.id.input_p_price);
+        input_p_price_d = (TextInputEditText) findViewById(R.id.input_p_price_d);
+        input_p_quantity = (TextInputEditText) findViewById(R.id.input_p_quantity);
         checkOffer = (CheckBox) findViewById(R.id.checkOffer);
         checkPopular = (CheckBox) findViewById(R.id.checkPopular);
         checkCollection = (CheckBox) findViewById(R.id.checkCollection);
@@ -159,11 +160,9 @@ public class AddItem extends AppCompatActivity {
                     String item_icon = getStringImage(bitmap);
                     String item_vendor = new SharedPrefDatabase(getApplicationContext()).RetriveVendorID();
 
-                    /*Log.d("SAIM", service_shop_ic_id + "\n" + item_name + "\n" + item_detail + "\n" + item_price + "\n" + item_d_price
-                            + "\n" + item_quantity + "\n" + item_vendor + "\n" + item_offer + "\n" + item_popular + "\n" + item_collection + "\n" + item_icon);*/
+                    Log.d("SAIM IMAGE", item_icon);
 
                     AddItem(service_shop_ic_id, item_name, item_detail, item_price, item_d_price, item_quantity, item_icon, item_vendor, item_offer, item_popular, item_collection);
-
                 }
 
             }
@@ -173,6 +172,7 @@ public class AddItem extends AppCompatActivity {
 
     public void AddItem(final String service_shop_ic_id, final String item_name, final String item_detail, final String item_price, final String item_d_price, final String item_quantity, final String item_icon, final String item_vendor,
                         final String item_offer, final String item_popular, final String item_collection){
+        Log.d("SAIM RESPONSE", "Hey im sending request can you please check.");
         progressDialog.setMessage("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
@@ -181,6 +181,7 @@ public class AddItem extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         progressDialog.dismiss();
+                        Log.d("SAIM RESPONSE", response);
                         try {
                             JSONArray jsonArray = new JSONArray(response);
                             JSONObject jsonObject = jsonArray.getJSONObject(0);
@@ -222,6 +223,7 @@ public class AddItem extends AppCompatActivity {
             }
         };
         stringRequest.setShouldCache(false);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, 1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
     }
 

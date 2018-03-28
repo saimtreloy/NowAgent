@@ -15,6 +15,7 @@ public class SharedPrefDatabase {
     public static final String VENDOR_ICON = "USER_NAME";
     public static final String VENDOR_LOCATION = "USER_EMAIL";
     public static final String VENDOR_MOBILE = "USER_MOBILE";
+    public static final String VENDOR_LOCATION_TAG = "VENDOR_LOCATION_TAG";
     public static final String VENDOR_USERNAME = "USER_PASS";
     public static final String VENDOR_PASSWORD = "USER_IMAGE";
     public static final String VENDOR_TOKEN = "USER_SHOP_VENDOR_TOKEN";
@@ -75,6 +76,17 @@ public class SharedPrefDatabase {
         String text = sharedPreferences.getString(VENDOR_MOBILE, null);
         return text;
     }
+
+
+    public void StoreVendorLocationTag(String data){
+        editor.putString(VENDOR_LOCATION_TAG, data);
+        editor.commit();
+    }
+    public String RetriveVendorLocationTag(){
+        String text = sharedPreferences.getString(VENDOR_LOCATION_TAG, null);
+        return text;
+    }
+
 
     public void StoreVendorUsername(String data){
         editor.putString(VENDOR_USERNAME, data);
